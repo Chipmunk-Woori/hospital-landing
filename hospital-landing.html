@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>본정형외과</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --teal:       #138ebb;
+      --teal-dark:  #0f7aa3;
+      --teal-deeper:#0d6a8f;
+      --teal-light: #e8f4fb;
+      --text-dark:  #1e2832;
+      --text-mid:   #4a5a6e;
+      --text-light: #7a90a8;
+      --white:      #ffffff;
+      --gray-bg:    #f9fafb;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ───────── NAVBAR ───────── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: transparent;
+      box-shadow: none;
+      padding: 0 60px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .35s ease, box-shadow .35s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,.07);
+    }
+
+    .navbar.scrolled .navbar-logo,
+    .navbar.scrolled .navbar-nav a,
+    .navbar.scrolled .navbar-search {
+      color: var(--text-dark);
+    }
+
+    .navbar.scrolled .navbar-nav a:hover,
+    .navbar.scrolled .navbar-search:hover {
+      color: var(--teal);
+    }
+
+    .navbar-logo {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      letter-spacing: .06em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar-logo-icon {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .navbar-nav a {
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white);
+      transition: color .2s;
+    }
+
+    .navbar-nav a:hover { color: rgba(255,255,255,.7); }
+
+    .navbar-search {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--white);
+      transition: color .2s;
+    }
+
+    .navbar-search:hover { color: rgba(255,255,255,.7); }
+
+    .navbar-search svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    /* ───────── HERO ───────── */
+    .hero {
+      position: relative;
+      min-height: 540px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 120px 60px 80px;
+      background: var(--teal-deeper);
+    }
+
+    /* 전체 배경 이미지 */
+    .hero-bg-img {
+      position: absolute;
+      top: 0;
+      right: -8%;
+      width: 75%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: 0;
+    }
+
+    /* 왼쪽 틸 → 오른쪽 투명 그라데이션 오버레이 */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to right,
+        var(--teal-deeper) 0%,
+        var(--teal-deeper) 32%,
+        rgba(19, 142, 187, 0.8) 48%,
+        rgba(19, 142, 187, 0.2) 62%,
+        transparent 75%
+      );
+    }
+
+    .hero-content {
+      max-width: 480px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--white);
+      margin-bottom: 36px;
+      text-shadow: 0 2px 16px rgba(0,0,0,.15);
+      white-space: nowrap;
+      letter-spacing: -.01em;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.88);
+      margin-bottom: 32px;
+      max-width: 380px;
+    }
+
+    .btn-hero {
+      display: inline-block;
+      padding: 11px 30px;
+      border: 2px solid rgba(255,255,255,.85);
+      border-radius: 3px;
+      color: var(--white);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+
+    .btn-hero:hover {
+      background: rgba(255,255,255,.15);
+    }
+
+    .hero-dots {
+      position: absolute;
+      bottom: 90px;
+      left: 60px;
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .hero-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.4);
+      border: none;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .hero-dot.active {
+      background: var(--white);
+    }
+
+
+    /* Wave bottom */
+    .hero-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      line-height: 0;
+      z-index: 3;
+    }
+
+    .hero-wave svg {
+      display: block;
+      width: 100%;
+    }
+
+    /* ───────── DEPARTMENTS ───────── */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+      padding: 0 60px;
+    }
+
+    .section-header h2 {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.9rem;
+      color: var(--text-dark);
+      margin-bottom: 40px;
+      letter-spacing: .02em;
+    }
+
+    .section-header p {
+      font-size: 1rem;
+      color: var(--text-mid);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    .dept-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .dept-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+    }
+
+    .dept-row.reverse {
+      direction: rtl;
+    }
+
+    .dept-row.reverse > * {
+      direction: ltr;
+    }
+
+    .dept-img-wrap {
+      width: 100%;
+      height: 100%;
+      background: #d0e5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7aaed4;
+      font-size: .85rem;
+      overflow: hidden;
+    }
+
+    .dept-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dept-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 64px;
+      background: var(--white);
+    }
+
+    .dept-row:nth-child(even) .dept-text {
+      background: var(--gray-bg);
+    }
+
+    .dept-num {
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      color: var(--teal);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .dept-text h3 {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .dept-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+    }
+
+    .dept-divider {
+      width: 40px;
+      height: 3px;
+      background: var(--teal);
+      margin-bottom: 20px;
+      border-radius: 2px;
+    }
+
+    .dept-features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 28px;
+    }
+
+    .dept-feature {
+      border: 1px solid #dce6ee;
+      border-radius: 0;
+      margin-left: -1px;
+      padding: 20px 10px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .dept-row:nth-child(even) .dept-feature {
+      border-color: #d2dde8;
+    }
+
+    .dept-feature svg {
+      width: 28px;
+      height: 28px;
+      stroke: #4a5e72;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .dept-feature span {
+      font-size: .68rem;
+      color: #8a9aac;
+      text-align: center;
+    }
+
+    .btn-teal {
+      display: inline-block;
+      padding: 12px 38px;
+      background: var(--teal);
+      color: var(--white);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: background .2s;
+    }
+
+    .btn-teal:hover {
+      background: var(--teal-dark);
+    }
+
+    .btn-center {
+      text-align: center;
+    }
+
+    /* ───────── ABOUT ───────── */
+    .about-section {
+      background: var(--gray-bg);
+      padding: 80px 60px;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #d0e5f5;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7aaed4;
+      font-size: .85rem;
+      letter-spacing: .04em;
+    }
+
+    .about-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .about-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.4rem;
+      color: var(--text-dark);
+      margin-top: 16px;
+      text-align: center;
+      letter-spacing: .02em;
+    }
+
+    .about-text h2 {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.85rem;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      letter-spacing: .02em;
+    }
+
+    .about-text p {
+      font-size: .88rem;
+      line-height: 1.75;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+    }
+
+    .bio-block {
+      margin-bottom: 20px;
+    }
+
+    .bio-title {
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: none;
+      color: var(--teal-dark);
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #d0e5f5;
+    }
+
+    .bio-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 4px;
+    }
+
+    .bio-list > li {
+      font-size: .82rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      padding-left: 12px;
+      position: relative;
+    }
+
+    .bio-list > li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+    }
+
+    .bio-sub {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0 12px;
+    }
+
+    .bio-sub li {
+      font-size: .78rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .bio-sub li::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+      color: var(--text-light);
+    }
+
+    /* ───────── DOCTORS ───────── */
+    .doctors-section {
+      background: linear-gradient(135deg, var(--teal-deeper) 0%, var(--teal) 60%, #3eb5d4 100%);
+      padding: 80px 60px;
+    }
+
+    .doctors-section .section-header h2 {
+      color: var(--white);
+    }
+
+    .doctors-section .section-header p {
+      color: rgba(255,255,255,.82);
+      max-width: 620px;
+    }
+
+    .doctors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 44px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .doctor-card {
+      background: var(--white);
+      border-radius: 0;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .doctor-img-placeholder {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #e0eef8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7aaed4;
+      font-size: .8rem;
+      letter-spacing: .04em;
+    }
+
+    .doctor-info {
+      padding: 18px 16px 20px;
+    }
+
+    .doctor-info h4 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .doctor-info span {
+      font-size: .8rem;
+      color: var(--text-light);
+    }
+
+    .btn-white {
+      display: inline-block;
+      padding: 12px 38px;
+      border: 2px solid rgba(255,255,255,.85);
+      color: var(--white);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: background .2s;
+    }
+
+    .btn-white:hover {
+      background: rgba(255,255,255,.12);
+    }
+
+    /* ───────── 오시는 길 ───────── */
+    .location-section {
+      background: var(--white);
+    }
+
+    .location-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 60px;
+      border-bottom: 1px solid #e8efed;
+    }
+
+    .location-title {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .location-more {
+      font-size: .85rem;
+      color: var(--text-mid);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .location-more:hover { color: var(--teal); }
+
+    .location-map {
+      width: 100%;
+      height: 380px;
+    }
+
+    .location-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 52px 60px;
+    }
+
+    .location-left {
+      padding-right: 60px;
+      border-right: 1px solid #e8efed;
+    }
+
+    .location-clinic-name {
+      font-size: .85rem;
+      color: var(--text-mid);
+      margin-bottom: 10px;
+    }
+
+    .location-address {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 28px;
+      line-height: 1.4;
+    }
+
+    .location-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-location {
+      padding: 10px 22px;
+      border: 1.5px solid var(--text-dark);
+      border-radius: 3px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+
+    .btn-location:hover {
+      background: var(--text-dark);
+      color: var(--white);
+    }
+
+    .location-right {
+      padding-left: 60px;
+    }
+
+    .location-detail {
+      padding: 20px 0;
+      border-bottom: 1px solid #e8efed;
+    }
+
+    .location-detail:first-child { padding-top: 0; }
+    .location-detail:last-child { border-bottom: none; }
+
+    .location-detail h4 {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      letter-spacing: .04em;
+    }
+
+    .location-detail p {
+      font-size: .88rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .location-hours { display: flex; flex-direction: column; gap: 6px; }
+
+    .hours-row {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .hours-day {
+      font-size: .84rem;
+      color: var(--text-dark);
+      font-weight: 600;
+      min-width: 44px;
+    }
+
+    .hours-time {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hours-time span {
+      font-size: .84rem;
+      color: var(--text-mid);
+    }
+
+    .hours-note {
+      font-size: .78rem;
+      color: var(--text-light);
+    }
+
+    /* ───────── FLOATING CTA ───────── */
+    .float-cta {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .float-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 148px;
+      padding: 13px 20px;
+      border-radius: 50px;
+      font-size: .82rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: .03em;
+      box-shadow: 0 4px 18px rgba(0,0,0,.18);
+      transition: transform .2s, box-shadow .2s;
+      white-space: nowrap;
+    }
+
+    .float-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,.22);
+    }
+
+    .float-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .float-btn-call {
+      background: var(--teal);
+      color: var(--white);
+    }
+
+    .float-btn-kakao {
+      background: #FEE500;
+      color: #3A1D1D;
+    }
+
+    /* ───────── STATS BAR ───────── */
+    .stats-bar {
+      background: var(--white);
+      border-bottom: 1px solid #e8edf2;
+      padding: 0 60px;
+    }
+
+    .stats-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 20px;
+      border-right: 1px solid #e8edf2;
+      text-align: center;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: -.02em;
+    }
+
+    .stat-number span {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: .78rem;
+      color: var(--text-mid);
+      letter-spacing: .04em;
+    }
+
+    @media (max-width: 900px) {
+      .stats-bar { padding: 0 24px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-bottom: none; }
+    }
+
+    @media (max-width: 600px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-number { font-size: 1.8rem; }
+    }
+
+    /* ───────── FOOTER ───────── */
+    .footer {
+      background: #1a2330;
+      padding: 48px 60px 36px;
+      color: rgba(255,255,255,.55);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 28px;
+      gap: 40px;
+    }
+
+    .footer-brand {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: .04em;
+      margin-bottom: 12px;
+    }
+
+    .footer-desc {
+      font-size: .8rem;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 40px;
+      flex-shrink: 0;
+    }
+
+    .footer-col h5 {
+      font-size: .78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.85);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col ul a {
+      font-size: .8rem;
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .footer-col ul a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-info {
+      font-size: .75rem;
+      line-height: 1.9;
+    }
+
+    .footer-info strong {
+      color: rgba(255,255,255,.75);
+      font-weight: 600;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .footer-legal a {
+      font-size: .75rem;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .footer-legal a:hover {
+      color: rgba(255,255,255,.8);
+    }
+
+    .footer-legal a + a {
+      padding-left: 16px;
+      border-left: 1px solid rgba(255,255,255,.15);
+    }
+
+    @media (max-width: 900px) {
+      .footer { padding: 40px 24px 28px; }
+      .footer-top { flex-direction: column; gap: 28px; }
+      .footer-links { gap: 28px; }
+      .float-cta { bottom: 20px; right: 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .footer-links { flex-wrap: wrap; gap: 20px; }
+      .float-btn span { display: none; }
+      .float-btn { padding: 13px; }
+    }
+
+    /* ───────── ANIMATIONS ───────── */
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatSlideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Hero 등장 */
+    .hero-content h1 {
+      animation: heroFadeUp .9s cubic-bezier(.22,.61,.36,1) .15s both;
+    }
+    .hero-content p {
+      animation: heroFadeUp .9s cubic-bezier(.22,.61,.36,1) .35s both;
+    }
+
+    /* Float CTA 등장 */
+    .float-cta {
+      animation: floatSlideIn .7s cubic-bezier(.22,.61,.36,1) .9s both;
+    }
+
+    /* 스크롤 트리거 기본 상태 */
+    .anim-fade-up {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .75s cubic-bezier(.22,.61,.36,1),
+                  transform .75s cubic-bezier(.22,.61,.36,1);
+    }
+    .anim-slide-left {
+      opacity: 0;
+      transform: translateX(-52px);
+      transition: opacity .8s cubic-bezier(.22,.61,.36,1),
+                  transform .8s cubic-bezier(.22,.61,.36,1);
+    }
+    .anim-slide-right {
+      opacity: 0;
+      transform: translateX(52px);
+      transition: opacity .8s cubic-bezier(.22,.61,.36,1),
+                  transform .8s cubic-bezier(.22,.61,.36,1);
+    }
+
+    .anim-fade-up.visible,
+    .anim-slide-left.visible,
+    .anim-slide-right.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* 순차 딜레이 */
+    .anim-d1 { transition-delay: .08s; }
+    .anim-d2 { transition-delay: .18s; }
+    .anim-d3 { transition-delay: .28s; }
+    .anim-d4 { transition-delay: .38s; }
+
+    /* Hover — 진료분야 아이콘 박스 */
+    .dept-feature {
+      transition: background .22s ease, box-shadow .22s ease;
+    }
+    .dept-feature:hover {
+      background: #edf4fb;
+      box-shadow: inset 0 0 0 1px var(--teal);
+    }
+
+    /* Hover — 병원특징 카드 */
+    .doctor-card {
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .doctor-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 14px 32px rgba(0,0,0,.11);
+    }
+
+    /* Hover — 스탯 아이템 */
+    .stat-item {
+      transition: transform .24s ease;
+      cursor: default;
+    }
+    .stat-item:hover { transform: translateY(-3px); }
+
+    /* ───────── RESPONSIVE ───────── */
+    @media (max-width: 900px) {
+      .navbar { padding: 0 24px; }
+      .section, .about-section, .doctors-section { padding: 60px 24px; }
+      .hero { padding: 50px 24px 110px; }
+      .dept-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-inner { grid-template-columns: 1fr; }
+      .doctors-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-image-wrap { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .navbar-nav { display: none; }
+      .dept-grid { grid-template-columns: 1fr; }
+      .doctors-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a class="navbar-logo" href="#">
+      <img src="/Users/baewoori/Downloads/join.png" alt="로고 아이콘" class="navbar-logo-icon" />
+      본 정형외과
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="#">홈</a></li>
+      <li><a href="#">진료 분야</a></li>
+      <li><a href="#">원장 소개</a></li>
+      <li><a href="#">병원 특징</a></li>
+      <li><a href="#">오시는 길</a></li>
+      <li>
+        <button class="navbar-search" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <img class="hero-bg-img" src="/Users/baewoori/Downloads/doctor_2.png" alt="Hero background" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>통증, 더 이상 참지 마세요.</h1>
+      <p>척추·관절 전문의의 정확한 진단과 체계적인 치료로<br/>빠른 회복과 건강한 삶을 되찾아 드립니다.<br/><span style="white-space:nowrap;">비수술 치료부터 정밀 수술까지, 환자에게 맞는 최적의 방법을 제안합니다.</span></p>
+    </div>
+
+
+  </section>
+
+  <!-- ── STATS BAR ── -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-number">15<span>년+</span></div>
+        <div class="stat-label">임상 경력</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3<span>만+</span></div>
+        <div class="stat-label">누적 진료 환자</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">5<span>천+</span></div>
+        <div class="stat-label">신경차단술 시술</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">98<span>%</span></div>
+        <div class="stat-label">환자 만족도</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DEPARTMENTS ── -->
+  <section class="section">
+    <div class="section-header">
+      <h2>주요 진료 분야</h2>
+    </div>
+
+    <div class="dept-list">
+      <div class="dept-row">
+        <div class="dept-img-wrap"><img src="/Users/baewoori/Downloads/2148836553.jpg" alt="척추 클리닉" /></div>
+        <div class="dept-text">
+          <div class="dept-num">01</div>
+          <div class="dept-divider"></div>
+          <h3>척추 클리닉</h3>
+          <p>허리디스크, 척추관협착증, 목디스크 등 척추 관련 통증의 원인을 정확히 파악하고 비수술·수술적 치료를 병행합니다.</p>
+          <div class="dept-features">
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4m-2-2h4"/></svg>
+              <span>비수술 치료</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span>정밀 진단</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m-2 0h4"/></svg>
+              <span>통증 완화</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span>빠른 회복</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dept-row reverse">
+        <div class="dept-img-wrap"><img src="/Users/baewoori/Downloads/2149071457.jpg" alt="관절 클리닉" /></div>
+        <div class="dept-text">
+          <div class="dept-num">02</div>
+          <div class="dept-divider"></div>
+          <h3>관절 클리닉</h3>
+          <p>무릎·어깨·고관절 등 각 관절의 퇴행성 변화와 손상을 최소 침습적 방법으로 치료합니다.</p>
+          <div class="dept-features">
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>짧은 시술시간</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span>최소 침습</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+              <span>맞춤 치료</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              <span>부작용 최소</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dept-row">
+        <div class="dept-img-wrap"><img src="/Users/baewoori/Downloads/378.jpg" alt="통증 클리닉" /></div>
+        <div class="dept-text">
+          <div class="dept-num">03</div>
+          <div class="dept-divider"></div>
+          <h3>통증 클리닉</h3>
+          <p>만성 통증, 신경통, 근골격계 통증에 대해 신경차단술·TPI 등 비수술 치료로 빠른 통증 완화를 도와드립니다.</p>
+          <div class="dept-features">
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+              <span>비침습 치료</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m-2 0h4"/></svg>
+              <span>통증 완화</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4m-2-2h4"/></svg>
+              <span>회복 촉진</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              <span>안전성</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dept-row reverse">
+        <div class="dept-img-wrap"><img src="/Users/baewoori/Downloads/9457.jpg" alt="재활 클리닉" /></div>
+        <div class="dept-text">
+          <div class="dept-num">04</div>
+          <div class="dept-divider"></div>
+          <h3>재활 클리닉</h3>
+          <p>치료 후 빠른 일상 복귀를 위한 체계적인 재활 운동 및 물리치료 프로그램을 제공합니다.</p>
+          <div class="dept-features">
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+              <span>체계적<br>프로그램</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>전문 치료사</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              <span>맞춤 재활</span>
+            </div>
+            <div class="dept-feature">
+              <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+              <span>지속 케어</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── ABOUT US ── -->
+  <section class="about-section">
+    <div class="section-header">
+      <h2>원장 소개</h2>
+    </div>
+    <div class="about-inner">
+      <div class="about-left">
+        <img src="/Users/baewoori/Downloads/doctor.png" alt="About Us Doctor" style="width:70%; max-height:420px; aspect-ratio:3/4; object-fit:cover; object-position:center top; border-radius:0; display:block; margin:0 auto;" />
+        <h2 class="about-name">이동욱 대표원장</h2>
+      </div>
+      <div class="about-text">
+
+        <div class="bio-block">
+          <h3 class="bio-title">학회활동</h3>
+          <ul class="bio-list">
+            <li>대한 정형외과학회 정회원</li>
+            <li>대한 척추외과학회 정회원</li>
+            <li>대한 견주관절학회 정회원</li>
+            <li>대한 슬관절학회 정회원</li>
+            <li>대한 족부족관절학회 정회원</li>
+            <li>대한 정형통증학회 정회원</li>
+            <li>TPI(근막동통 유발점 주사자극치료) 이수</li>
+            <li>대한 골대사학회 회원</li>
+            <li>AO trauma course 이수</li>
+          </ul>
+        </div>
+
+        <div class="bio-block">
+          <h3 class="bio-title">약력</h3>
+          <ul class="bio-list">
+            <li>가나대학교 의과대학 졸업</li>
+            <li>다라대학병원 정형외과 전공의 수료</li>
+            <li>전) 마바종합병원 정형외과 과장 역임</li>
+            <li>전) 마바병원 척추관절센터장 역임</li>
+            <li>전) 사아정형외과 원장 역임
+              <ul class="bio-sub">
+                <li>신경차단술 5,000례 이상</li>
+                <li>어깨관절 내시경 500례 이상</li>
+                <li>신경성형술 500례 이상</li>
+                <li>무릎관절 내시경 500례 이상</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DOCTORS ── -->
+  <section class="doctors-section">
+    <div class="section-header">
+      <h2>왜 저희 병원을 선택해야 할까요?</h2>
+      <p>환자의 빠른 회복과 건강한 일상으로의 복귀를 최우선으로 생각합니다.<br/>정확한 진단과 체계적인 치료로 통증 없는 삶을 되찾아 드리겠습니다.</p>
+    </div>
+
+    <div class="doctors-grid">
+      <div class="doctor-card">
+        <img src="/Users/baewoori/Downloads/진료실 의사.png" alt="환자 중심 개인 맞춤 치료" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center top; display:block;" />
+        <div class="doctor-info">
+          <h4>환자 중심 개인 맞춤 치료</h4>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <img src="/Users/baewoori/Downloads/2149341486.jpg" alt="첨단 진단 장비 완비" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center center; display:block;" />
+        <div class="doctor-info">
+          <h4>첨단 진단 장비 완비</h4>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <img src="/Users/baewoori/Downloads/30807.jpg" alt="편안하고 청결한 의료 환경" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center center; display:block;" />
+        <div class="doctor-info">
+          <h4>편안하고 청결한 의료 환경</h4>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── 오시는 길 ── -->
+  <section class="location-section">
+    <div class="location-header">
+      <h2 class="location-title">오시는 길</h2>
+      <a href="#" class="location-more">더보기 &rsaquo;</a>
+    </div>
+
+    <div class="location-map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3264!2d127.0!3d37.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDMwJzAwLjAiTiAxMjfCsDAwJzAwLjAiRQ!5e0!3m2!1sko!2skr!4v1600000000000!5m2!1sko!2skr"
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <div class="location-info">
+      <div class="location-left">
+        <p class="location-clinic-name">본 정형외과</p>
+        <p class="location-address">서울특별시 가나동 62-10 5층</p>
+      </div>
+
+      <div class="location-right">
+        <div class="location-detail">
+          <h4>오시는 길</h4>
+          <p>다라빌딩 7층</p>
+        </div>
+        <div class="location-detail">
+          <h4>전화번호</h4>
+          <p>000-000-0000</p>
+        </div>
+        <div class="location-detail">
+          <h4>이용시간</h4>
+          <div class="location-hours">
+            <div class="hours-row">
+              <span class="hours-day">평일</span>
+              <div class="hours-time">
+                <span>09:00 - 18:00</span>
+                <span class="hours-note">점심시간(13:00-14:00)</span>
+              </div>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">토요일</span>
+              <div class="hours-time">
+                <span>09:00 - 14:00</span>
+                <span class="hours-note">점심시간 없이 진료</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">본 정형외과</div>
+          <p class="footer-desc">척추·관절 전문의의 정확한 진단과<br/>체계적인 치료로 건강한 삶을 되찾아 드립니다.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>진료 분야</h5>
+            <ul>
+              <li><a href="#">척추 클리닉</a></li>
+              <li><a href="#">관절 클리닉</a></li>
+              <li><a href="#">통증 클리닉</a></li>
+              <li><a href="#">재활 클리닉</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>병원 안내</h5>
+            <ul>
+              <li><a href="#">원장 소개</a></li>
+              <li><a href="#">병원 특징</a></li>
+              <li><a href="#">오시는 길</a></li>
+              <li><a href="#">온라인 예약</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <strong>본 정형외과 의원</strong><br/>
+          대표자: 이동욱 &nbsp;|&nbsp; 사업자등록번호: 000-00-00000<br/>
+          주소: 서울특별시 가나동 62-10 5층 &nbsp;|&nbsp; 대표전화: 000-000-0000
+        </div>
+        <div>
+          <div class="footer-legal">
+            <a href="#">개인정보처리방침</a>
+            <a href="#">이용약관</a>
+          </div>
+          <p style="font-size:.72rem; margin-top:10px; text-align:right;">© 2025 본 정형외과. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── FLOATING CTA ── -->
+  <div class="float-cta">
+    <a href="tel:000-000-0000" class="float-btn float-btn-call">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+      </svg>
+      <span>전화 상담</span>
+    </a>
+    <a href="https://pf.kakao.com" target="_blank" rel="noopener" class="float-btn float-btn-kakao">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.717 1.666 5.112 4.2 6.48L5.4 20.4a.3.3 0 00.432.324l3.996-2.412A11.69 11.69 0 0012 18.6c5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/>
+      </svg>
+      <span>카카오 상담</span>
+    </a>
+  </div>
+
+  <script>
+    /* ── 1. 네비게이션 스크롤 ── */
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ── 2. Intersection Observer ── */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    /* 섹션 헤더 */
+    document.querySelectorAll('.section-header').forEach(el => {
+      el.classList.add('anim-fade-up');
+      io.observe(el);
+    });
+
+    /* 스탯 아이템 */
+    document.querySelectorAll('.stat-item').forEach((el, i) => {
+      el.classList.add('anim-fade-up', `anim-d${i + 1}`);
+      io.observe(el);
+    });
+
+    /* 진료분야 — 이미지/텍스트 좌우 교차 슬라이드 */
+    document.querySelectorAll('.dept-row').forEach((row, i) => {
+      const img  = row.querySelector('.dept-img-wrap');
+      const text = row.querySelector('.dept-text');
+      const even = i % 2 === 1;
+      img.classList.add(even  ? 'anim-slide-right' : 'anim-slide-left');
+      text.classList.add(even ? 'anim-slide-left'  : 'anim-slide-right');
+      io.observe(img);
+      io.observe(text);
+    });
+
+    /* About */
+    const aboutInner = document.querySelector('.about-inner');
+    if (aboutInner) { aboutInner.classList.add('anim-fade-up'); io.observe(aboutInner); }
+
+    /* 병원특징 카드 */
+    document.querySelectorAll('.doctor-card').forEach((el, i) => {
+      el.classList.add('anim-fade-up', `anim-d${i + 1}`);
+      io.observe(el);
+    });
+
+    /* 오시는 길 */
+    document.querySelectorAll('.location-header, .location-info').forEach(el => {
+      el.classList.add('anim-fade-up');
+      io.observe(el);
+    });
+
+    /* 푸터 */
+    const footerInner = document.querySelector('.footer-inner');
+    if (footerInner) { footerInner.classList.add('anim-fade-up'); io.observe(footerInner); }
+
+    /* ── 3. 스탯 카운트업 ── */
+    function countUp(numEl, target) {
+      const span    = numEl.querySelector('span');
+      const suffix  = span ? span.outerHTML : '';
+      const dur     = 1800;
+      const started = performance.now();
+      const tick = (now) => {
+        const t = Math.min((now - started) / dur, 1);
+        const ease = 1 - Math.pow(1 - t, 3);
+        numEl.innerHTML = Math.floor(ease * target) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    const statTargets = [15, 3, 5, 98];
+    const counterIO = new IntersectionObserver((entries) => {
+      entries.forEach((e, idx) => {
+        if (e.isIntersecting) {
+          const numEl = e.target.querySelector('.stat-number');
+          if (numEl) countUp(numEl, statTargets[Array.from(document.querySelectorAll('.stat-item')).indexOf(e.target)]);
+          counterIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-item').forEach(el => counterIO.observe(el));
+  </script>
+</body>
+</html>
