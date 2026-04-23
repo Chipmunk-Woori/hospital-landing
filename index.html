@@ -6,7 +6,8 @@
   <title>본정형외과</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -29,10 +30,18 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text-dark);
       background: var(--white);
       overflow-x: hidden;
+    }
+
+    /* ───────── CONTAINER ───────── */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 60px;
+      width: 100%;
     }
 
     /* ───────── NAVBAR ───────── */
@@ -44,12 +53,15 @@
       z-index: 100;
       background: transparent;
       box-shadow: none;
-      padding: 0 60px;
       height: 64px;
+      transition: background .35s ease, box-shadow .35s ease;
+    }
+
+    .navbar .container {
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background .35s ease, box-shadow .35s ease;
     }
 
     .navbar.scrolled {
@@ -70,7 +82,7 @@
     }
 
     .navbar-logo {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 1.6rem;
       color: var(--white);
       letter-spacing: .06em;
@@ -256,11 +268,10 @@
     .section-header {
       text-align: center;
       margin-bottom: 70px;
-      padding: 0 60px;
     }
 
     .section-header h2 {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 1.9rem;
       color: var(--text-dark);
       margin-bottom: 40px;
@@ -279,8 +290,6 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      max-width: 1000px;
-      margin: 0 auto;
     }
 
     .dept-row {
@@ -338,7 +347,7 @@
     }
 
     .dept-text h3 {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 1.9rem;
       font-weight: 400;
       color: var(--text-dark);
@@ -422,7 +431,7 @@
     /* ───────── ABOUT ───────── */
     .about-section {
       background: var(--gray-bg);
-      padding: 80px 60px;
+      padding: 80px 0;
     }
 
     .about-inner {
@@ -430,8 +439,6 @@
       grid-template-columns: 1fr 1fr;
       gap: 60px;
       align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
     }
 
     .about-img-placeholder {
@@ -454,7 +461,7 @@
     }
 
     .about-name {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 1.4rem;
       color: var(--text-dark);
       margin-top: 16px;
@@ -463,7 +470,7 @@
     }
 
     .about-text h2 {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 1.85rem;
       color: var(--text-dark);
       margin-bottom: 18px;
@@ -536,8 +543,23 @@
 
     /* ───────── DOCTORS ───────── */
     .doctors-section {
+      position: relative;
       background: linear-gradient(135deg, var(--teal-deeper) 0%, var(--teal) 60%, #3eb5d4 100%);
-      padding: 80px 60px;
+      padding: 80px 0;
+    }
+
+    .doctors-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('images/bg_bone.png') right center / auto 100% no-repeat;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .doctors-section .container {
+      position: relative;
+      z-index: 1;
     }
 
     .doctors-section .section-header h2 {
@@ -619,16 +641,19 @@
       background: var(--white);
     }
 
+    .location-header-bar {
+      border-bottom: 1px solid #e8efed;
+    }
+
     .location-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 28px 60px;
-      border-bottom: 1px solid #e8efed;
+      padding: 28px 0;
     }
 
     .location-title {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--teal);
@@ -653,7 +678,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
-      padding: 52px 60px;
+      padding: 52px 0;
     }
 
     .location-left {
@@ -807,7 +832,6 @@
     .stats-bar {
       background: var(--white);
       border-bottom: 1px solid #e8edf2;
-      padding: 0 60px;
     }
 
     .stats-inner {
@@ -832,7 +856,7 @@
     }
 
     .stat-number {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 2.2rem;
       font-weight: 800;
       color: var(--teal);
@@ -867,13 +891,8 @@
     /* ───────── FOOTER ───────── */
     .footer {
       background: #1a2330;
-      padding: 48px 60px 36px;
+      padding: 48px 0 36px;
       color: rgba(255,255,255,.55);
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
     }
 
     .footer-top {
@@ -887,7 +906,7 @@
     }
 
     .footer-brand {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 1.25rem;
       font-weight: 700;
       color: var(--white);
@@ -1073,8 +1092,8 @@
 
     /* ───────── RESPONSIVE ───────── */
     @media (max-width: 900px) {
-      .navbar { padding: 0 24px; }
-      .section, .about-section, .doctors-section { padding: 60px 24px; }
+      .container { padding: 0 24px; }
+      .section, .about-section, .doctors-section { padding: 60px 0; }
       .hero { padding: 50px 24px 110px; }
       .dept-grid { grid-template-columns: repeat(2, 1fr); }
       .about-inner { grid-template-columns: 1fr; }
@@ -1093,6 +1112,7 @@
 
   <!-- ── NAVBAR ── -->
   <nav class="navbar">
+    <div class="container">
     <a class="navbar-logo" href="#">
       <img src="images/join.png" alt="로고 아이콘" class="navbar-logo-icon" />
       본 정형외과
@@ -1112,6 +1132,7 @@
         </button>
       </li>
     </ul>
+    </div>
   </nav>
 
   <!-- ── HERO ── -->
@@ -1128,6 +1149,7 @@
 
   <!-- ── STATS BAR ── -->
   <div class="stats-bar">
+    <div class="container">
     <div class="stats-inner">
       <div class="stat-item">
         <div class="stat-number">15<span>년+</span></div>
@@ -1146,10 +1168,12 @@
         <div class="stat-label">환자 만족도</div>
       </div>
     </div>
+    </div>
   </div>
 
   <!-- ── DEPARTMENTS ── -->
   <section class="section">
+    <div class="container">
     <div class="section-header">
       <h2>주요 진료 분야</h2>
     </div>
@@ -1267,11 +1291,13 @@
         </div>
       </div>
     </div>
+    </div>
 
   </section>
 
   <!-- ── ABOUT US ── -->
   <section class="about-section">
+    <div class="container">
     <div class="section-header">
       <h2>원장 소개</h2>
     </div>
@@ -1317,10 +1343,12 @@
 
       </div>
     </div>
+    </div>
   </section>
 
   <!-- ── DOCTORS ── -->
   <section class="doctors-section">
+    <div class="container">
     <div class="section-header">
       <h2>왜 저희 병원을 선택해야 할까요?</h2>
       <p>환자의 빠른 회복과 건강한 일상으로의 복귀를 최우선으로 생각합니다.<br/>정확한 진단과 체계적인 치료로 통증 없는 삶을 되찾아 드리겠습니다.</p>
@@ -1346,14 +1374,19 @@
         </div>
       </div>
     </div>
+    </div>
 
   </section>
 
   <!-- ── 오시는 길 ── -->
   <section class="location-section">
-    <div class="location-header">
-      <h2 class="location-title">오시는 길</h2>
-      <a href="#" class="location-more">더보기 &rsaquo;</a>
+    <div class="location-header-bar">
+      <div class="container">
+        <div class="location-header">
+          <h2 class="location-title">오시는 길</h2>
+          <a href="#" class="location-more">더보기 &rsaquo;</a>
+        </div>
+      </div>
     </div>
 
     <div class="location-map">
@@ -1364,6 +1397,7 @@
       </iframe>
     </div>
 
+    <div class="container">
     <div class="location-info">
       <div class="location-left">
         <p class="location-clinic-name">본 정형외과</p>
@@ -1400,11 +1434,12 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- ── FOOTER ── -->
   <footer class="footer">
-    <div class="footer-inner">
+    <div class="container footer-inner">
       <div class="footer-top">
         <div>
           <div class="footer-brand">본 정형외과</div>
