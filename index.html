@@ -61,7 +61,8 @@
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      max-width: none;
     }
 
     .navbar.scrolled {
@@ -108,6 +109,7 @@
       align-items: center;
       gap: 32px;
       list-style: none;
+      margin-left: auto;
     }
 
     .navbar-nav a {
@@ -431,7 +433,7 @@
     /* ───────── ABOUT ───────── */
     .about-section {
       background: var(--gray-bg);
-      padding: 80px 0;
+      padding: 80px 0 0;
     }
 
     .about-inner {
@@ -458,6 +460,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+      align-self: stretch;
     }
 
     .about-name {
@@ -1093,7 +1097,8 @@
     /* ───────── RESPONSIVE ───────── */
     @media (max-width: 900px) {
       .container { padding: 0 24px; }
-      .section, .about-section, .doctors-section { padding: 60px 0; }
+      .section, .doctors-section { padding: 60px 0; }
+      .about-section { padding: 60px 0 0; }
       .hero { padding: 50px 24px 110px; }
       .dept-grid { grid-template-columns: repeat(2, 1fr); }
       .about-inner { grid-template-columns: 1fr; }
@@ -1120,7 +1125,7 @@
     <ul class="navbar-nav">
       <li><a href="#">홈</a></li>
       <li><a href="#">진료 분야</a></li>
-      <li><a href="#">원장 소개</a></li>
+      <li><a href="#">의료진 소개</a></li>
       <li><a href="#">병원 특징</a></li>
       <li><a href="#">오시는 길</a></li>
       <li>
@@ -1299,14 +1304,25 @@
   <section class="about-section">
     <div class="container">
     <div class="section-header">
-      <h2>원장 소개</h2>
+      <h2>의료진 소개</h2>
     </div>
     <div class="about-inner">
       <div class="about-left">
-        <img src="images/doctor.png" alt="About Us Doctor" style="width:70%; max-height:420px; aspect-ratio:3/4; object-fit:cover; object-position:center top; border-radius:0; display:block; margin:0 auto;" />
-        <h2 class="about-name">이동욱 대표원장</h2>
+        <img src="images/doctor_no_bg.png" alt="About Us Doctor" style="width:90%; height:100%; object-fit:cover; object-position:center top; border-radius:0; display:block; margin:0 auto;" />
       </div>
-      <div class="about-text">
+      <div class="about-text" style="padding-top:60px;">
+
+        <div style="margin-bottom:24px;">
+          <span style="font-size:2rem; font-weight:500; color:var(--text-dark); letter-spacing:-.01em;">이동욱</span><span style="font-size:1.1rem; font-weight:500; color:var(--text-mid); margin-left:8px;">원장</span>
+        </div>
+
+        <div style="margin-bottom:20px; padding:20px 0;">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <span style="font-size:1.7rem; line-height:1; color:var(--teal); font-family:Georgia, serif; font-weight:700; flex-shrink:0; margin-top:-6px;">"</span>
+            <span style="font-size:.92rem; line-height:1.85; color:var(--text-mid); flex:1;">정확한 진단, 최소한의 수술, 완벽한 재활까지 환자의 삶을 바꾸는 치료를 위해 늘 연구합니다. 일상으로 온전히 돌아가는 날까지 책임지고 진료하겠습니다</span>
+            <span style="font-size:1.7rem; line-height:1; color:var(--teal); font-family:Georgia, serif; font-weight:700; flex-shrink:0; margin-top:-6px;">"</span>
+          </div>
+        </div>
 
         <div class="bio-block">
           <h3 class="bio-title">학회활동</h3>
@@ -1458,7 +1474,7 @@
           <div class="footer-col">
             <h5>병원 안내</h5>
             <ul>
-              <li><a href="#">원장 소개</a></li>
+              <li><a href="#">의료진 소개</a></li>
               <li><a href="#">병원 특징</a></li>
               <li><a href="#">오시는 길</a></li>
               <li><a href="#">온라인 예약</a></li>
